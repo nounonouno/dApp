@@ -99,6 +99,7 @@ async function getRecord({
 
   // Get user's address.
   if (!address) {
+    console.log('open')
    [address] = await ethereum.request({ method: 'eth_requestAccounts' })
   }
   
