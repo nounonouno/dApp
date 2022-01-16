@@ -32,7 +32,7 @@ export const UserInterface = ({
     const [livestreamModal, setLivestreamModal] = useState(false);
     const [streamId, setStreamId] = useState(null)
     const [videoEl, setVideoEl] = useState(null);
-    const { streamIsActive, setStreamIsActive } = useState(false)
+    const [ streamIsActive, setStreamIsActive ] = useState(false)
 
   const onVideo = useCallback((el) => {
     setVideoEl(el);
@@ -284,19 +284,22 @@ const Stream = ({
               >
                 {streamIsActive ? "Live" : "Waiting for Video"}
             </StyledP>
-
-            <video
-                id="video"
-                ref={onVideo}
-                className="h-full w-full video-js vjs-theme-city"
-                controls
-                playsInline
-              />
-
+            <Card
+                height="65%"
+            >
+                <video
+                    id="video"
+                    ref={onVideo}
+                    className="h-full w-full video-js vjs-theme-city"
+                    controls
+                    playsInline
+                />
+            </Card>
             <Card 
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="flex-start"
+                heigh="30%"
             >
                 <Card
                     width="20%"

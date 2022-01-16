@@ -154,7 +154,7 @@ async function updateProfile(
   console.log('profile updated...')
 }
 
-async function setLocalProfileData(
+export async function setLocalProfileData(
   selfId,
   did,
   setProfile
@@ -162,6 +162,7 @@ async function setLocalProfileData(
   try {
     const data = await selfId.get('basicProfile', did)
     if (!data) return
+    console.log(data)
     setProfile(data)
   } catch (error) {
     console.log('error', error)

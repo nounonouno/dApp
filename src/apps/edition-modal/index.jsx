@@ -47,6 +47,7 @@ export const EditionModal = ({
     const [solana, setSolana] = useState(null)
     const [polygon, setPolygon] = useState(null)
 
+    // Image
     const [image, setPreviewURL] = useState(null)
     const [file, setFile] = useState()
 
