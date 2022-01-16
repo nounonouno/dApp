@@ -7,6 +7,11 @@ html, body {
     
   }
 
+video {
+  width:100% !important;
+  height: 80% !important;
+}
+
 button {
   border-style: none;
   font-family: neuropol-nova, sans-serif;

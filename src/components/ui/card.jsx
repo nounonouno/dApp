@@ -12,5 +12,7 @@ export const Card = styled.div`
     align-items: ${props => props.alignItems ?? "center"};
     justify-content: ${props => props.justifyContent ?? "center"};
 
+    margin: ${props => props.margin ?? ""};
+
     border-radius: ${props => props.border ?? ""};
 `
