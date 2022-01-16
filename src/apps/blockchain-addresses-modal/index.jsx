@@ -31,16 +31,15 @@ export const BlockchainAddressesModal = ({
     const [activeAccount, setActiveAccount] = useState(profile.twitter)
     const [activeSocialMedia, setActiveSocialMedia] = useState('twitter')
    
-    if (profile === {} || !profile.addresses) return null
+    if (true) return null
 
-    const socials = {
-        reddit: profile.socials.reddit ?? null,
-        twitter: profile.socials.twitter ?? null,
-        discord: profile.socials.discord ?? null,
-        ens: profile.socials.ens ?? null
+    const blockchainAddresses = {
+        reddit: profile.addresses.ethereum ?? null,
+        twitter: profile.addresses.bitcoin ?? null,
+        discord: profile.addresses.solana ?? null,
+        ens: profile.addresses.polygon ?? null
     }
 
-   Object.entries(socials).map(acc => console.log(acc))
     return (
         <Modal
             isOpen={modalIsOpen}
@@ -72,7 +71,7 @@ export const BlockchainAddressesModal = ({
                     justifyContent="space-evenly"
                 >
                 {
-                    Object.entries(socials).map((account) => {
+                    Object.entries(blockchainAddresses).map((account) => {
                         if (account[1].length > 1) {
                             return (
                             <AccountIcon 
