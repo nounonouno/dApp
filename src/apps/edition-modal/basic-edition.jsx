@@ -29,7 +29,7 @@ export const BasicEdition = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.name}
+                    placeholder={profile.name ?? null}
                     onChange={(e) => setName(e.target.value)}
                 />
             </Card>
@@ -49,7 +49,7 @@ export const BasicEdition = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.bio}
+                    placeholder={profile.bio ?? null}
                     onChange={(e) => setBio(e.target.value)}
                 />
             </Card>

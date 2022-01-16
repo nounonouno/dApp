@@ -22,12 +22,13 @@ export const BlockchainAddressesModal = ({
 }) => {
     const { profile } = useNoUno()
     
-    const [activeAddress, setActiveAddress] = useState(profile.blockchainAddresses.ethereum)
+    if (profile === {} || !profile.blockchainAddresses || !modalIsOpen) return null
+
+    const [activeAddress, setActiveAddress] = useState(profile.blockchainAddresses.ethereum ?? '')
     const [activeBlockchain, setActiveBlockchain] = useState('ethereum')
     
     console.log(profile)
-    if (profile === {} || !profile.blockchainAddresses) return null
-
+    
     const blockchainAddresses = {
         ethereum: profile.blockchainAddresses.ethereum ?? null,
         bitcoin: profile.blockchainAddresses.bitcoin ?? null,
@@ -67,7 +68,7 @@ export const BlockchainAddressesModal = ({
                 >
                 {
                     Object.entries(blockchainAddresses).map((account) => {
-                        if (account[1].length > 1) {
+                        if (account[1] && account[1].length > 1) {
                             return (
                             <AccountIcon 
                                 blockchain={account[0]}

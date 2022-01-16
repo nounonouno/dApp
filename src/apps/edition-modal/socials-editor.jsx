@@ -32,7 +32,7 @@ export const SocialsEditor = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.socials.instagram}
+                    placeholder={profile.socials ? profile.socials.instagram ?? '' : ''}
                     onChange={(e) => setInstagram(e.target.value)}
                 />
             </Card>
@@ -52,7 +52,7 @@ export const SocialsEditor = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.socials.twitter}
+                    placeholder={profile.socials ? profile.socials.twitter ?? '' : ''}
                     onChange={(e) => setTwitter(e.target.value)}
                 />
             </Card>
@@ -72,7 +72,7 @@ export const SocialsEditor = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.socials.reddit}
+                    placeholder={profile.socials ? profile.socials.reddit ?? '' : ''}
                     onChange={(e) => setReddit(e.target.value)}
                 />
             </Card>
@@ -92,7 +92,7 @@ export const SocialsEditor = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.socials.discord}
+                    placeholder={profile.socials ? profile.socials.discord ?? '' : ''}
                     onChange={(e) => setDiscord(e.target.value)}
                 />
             </Card>

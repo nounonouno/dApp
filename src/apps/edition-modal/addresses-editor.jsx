@@ -31,7 +31,7 @@ export const AddressesEditor = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.blockchainAddresses.bitcoin}
+                    placeholder={profile.blockchainAddresses ? profile.blockchainAddresses.bitcoin ?? '' : ''}
                     onChange={(e) => setBitcoin(e.target.value)}
                 />
             </Card>
@@ -51,7 +51,7 @@ export const AddressesEditor = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.blockchainAddresses.ethereum}
+                    placeholder={profile.blockchainAddresses ? profile.blockchainAddresses.ethereum ?? '' : ''}
                     onChange={(e) => setEthereum(e.target.value)}
                 />
             </Card>
@@ -71,7 +71,7 @@ export const AddressesEditor = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.blockchainAddresses.solana}
+                    placeholder={profile.blockchainAddresses ? profile.blockchainAddresses.solana ?? '' : ''}
                     onChange={(e) => setSolana(e.target.value)}
                 />
             </Card>
@@ -91,7 +91,7 @@ export const AddressesEditor = ({
                 </Card>
                 <Input
                     type="text"
-                    placeholder={profile.blockchainAddresses.polygon}
+                    placeholder={profile.blockchainAddresses ? profile.blockchainAddresses.polygon ?? '' : ''}
                     onChange={(e) => setPolygon(e.target.value)}
                 />
             </Card>

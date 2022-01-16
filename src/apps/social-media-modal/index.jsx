@@ -19,7 +19,7 @@ export const SocialMediaModal = ({
 }) => {
     const { selfId, profile, did, setProfile } = useNoUno()
     
-    const [activeAccount, setActiveAccount] = useState(profile.twitter)
+    const [activeAccount, setActiveAccount] = useState(profile.socials.twitter)
     const [activeSocialMedia, setActiveSocialMedia] = useState('twitter')
    
     if (profile === {} || !profile.socials) return null
@@ -63,7 +63,7 @@ export const SocialMediaModal = ({
                 >
                 {
                     Object.entries(socials).map((account) => {
-                        if (!account[1] || account[1].length > 1) {
+                        if (account[1] != null && account[1].length > 1) {
                             return (
                             <AccountIcon 
                                 socialMedia={account[0]}

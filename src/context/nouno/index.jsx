@@ -63,6 +63,7 @@ export const NoUnoProvider = ({
             
         if (data) {
           setProfile(data)
+          console.log(data)
         } else {
           setStatus("Error")
         }

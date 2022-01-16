@@ -66,23 +66,30 @@ export const EditionModal = ({
 
     const update = async () => {
         setStage('Updating')
-        const profileIconUrl = await useCreateImage(
-            file
-        )
+
+        let profileIconUrl = null
+        if (file) {
+            profileIconUrl = await useCreateImage(
+                file
+            )
+        }
+        
 
         const socials = {
-            twitter: twitter != null ? twitter : profile.socials.twitter,
-            discord: discord != null ? discord : profile.socials.discord,
-            reddit: reddit != null ? reddit : profile.socials.reddit,
-            instagram: instagram != null ? instagram : profile.socials.instagram
+            twitter: twitter != null ? twitter : profile.socials ? profile.socials.twitter ?? null : null,
+            discord: discord != null ? discord : profile.socials ? profile.socials.discord ?? null : null,
+            reddit: reddit != null ? reddit : profile.socials ? profile.socials.redit ?? null : null,
+            instagram: instagram != null ? instagram : profile.socials ? profile.socials.instagram ?? null : null
         }
         
         const blockchains = {
-            bitcoin: bitcoin != null ? bitcoin : profile.blockchainAddresses.bitcoin,
-            ethereum: discord != null ? ethereum : profile.blockchainAddresses.ethereum,
-            solana: solana != null ? solana : profile.blockchainAddresses.solana,
-            polygon: polygon != null ? polygon : profile.blockchainAddresses.polygon
+            bitcoin: bitcoin != null ? bitcoin : profile.blockchainAddresses ? profile.blockchainAddresses.bitcoin ?? null : null ,
+            ethereum: discord != null ? ethereum : profile.blockchainAddresses ? profile.blockchainAddresses.ethereum ?? null : null ,
+            solana: solana != null ? solana : profile.blockchainAddresses ? profile.blockchainAddresses.solana ?? null : null ,
+            polygon: polygon != null ? polygon : profile.blockchainAddresses ? profile.blockchainAddresses.polygon ?? null : null ,
         }
+        
+        const profilepfp = profileIconUrl ?? profile.pfpurl
 
         console.log(socials)
         await updateProfile(
@@ -94,7 +101,7 @@ export const EditionModal = ({
             profile,
             did,
             setProfile,
-            profileIconUrl
+            profilepfp
         )
         setStage('Updated')
     }

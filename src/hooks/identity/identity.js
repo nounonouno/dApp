@@ -130,10 +130,10 @@ async function updateProfile(
   profile,
   did,
   setProfile,
-  profileIconUrl
+  profilepfp
 ) {
-  if (!bio && !name &&!profileIconUrl) {
-    console.log(bio, name, profileIconUrl)
+  if (!bio && !name &&!profilepfp) {
+    console.log(bio, name, profilepfp)
     console.log('error... no profile information submitted')
     return
   }
@@ -146,7 +146,7 @@ async function updateProfile(
   if (socials) user.twitter = socials.twitter
   if (bio) user.bio = bio
   if (name) user.name = name
-  if (profileIconUrl) user.pfpurl = profileIconUrl
+  if (profilepfp) user.pfpurl = profilepfp
   if (socials) user.socials = socials
   if (blockchains) user.blockchainAddresses = blockchains
   await selfId.set('basicProfile', user)
