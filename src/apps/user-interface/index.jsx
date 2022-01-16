@@ -242,7 +242,7 @@ const RightSide = ({
                 height="90%"
             >
                 {
-                    streamId && active === "stream" ?
+                    streamId && active === "livestream" ?
                         <Stream
                             onVideo={onVideo}
                             streamId={streamId}
@@ -299,6 +299,8 @@ const Selector = ({
             >
                 <StyledP
                     color={streamId ? "green" : "black"}
+                    size="20px"
+                    family="neuropol-nova, sans-serif"
                 >
                     Livestream
                 </StyledP>
@@ -336,7 +338,9 @@ const Stream = ({
       }, [streamIsActive]);
 
     return (
-        <>
+        <Card
+            direction="column"
+        >
         <StyledP
                 size="25px"
                 margin="10px 0 0 0"
@@ -388,7 +392,7 @@ const Stream = ({
 
                 </Card>
           </Card>
-        </>
+        </Card>
     )
 }
 
