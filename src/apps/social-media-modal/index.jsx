@@ -28,7 +28,7 @@ export const SocialMediaModal = ({
         reddit: profile.socials.reddit ?? null,
         twitter: profile.socials.twitter ?? null,
         discord: profile.socials.discord ?? null,
-        ens: profile.socials.ens ?? null
+        instagram: profile.socials.instagram ?? null
     }
 
     return (
@@ -63,7 +63,7 @@ export const SocialMediaModal = ({
                 >
                 {
                     Object.entries(socials).map((account) => {
-                        if (account[1].length > 1) {
+                        if (!account[1] || account[1].length > 1) {
                             return (
                             <AccountIcon 
                                 socialMedia={account[0]}
@@ -115,7 +115,7 @@ const useGetSocialMediaIcon = (socialMedia) => {
             return "bafkreick2lrfbfdwqjpgptrlk5cmx5vpzlr4fl5f2oqfouj5xdv3zfw7je"
         case "reddit":
             return "bafkreig7hqdtr67qboaykuman37ak7z5cwjltffbwhddwjqf64dsc7zp64"    
-        case "eth":
+        case "instagram":
             return "bafkreie2vp66x3msyxtwtm6pdxi5ymofxc6orv762dcwxfyudoolfeexhm"
         default:
             break;

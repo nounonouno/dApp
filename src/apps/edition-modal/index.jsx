@@ -20,6 +20,8 @@ import {
 // React Modal
 import Modal from 'react-modal';
 import { Upload } from "antd";
+import { ProfilePicEdition } from "./profile-pic-edition";
+import { DynamicSide } from "./dynamic-side";
 
 export const EditionModal = ({ 
     modalIsOpen, 
@@ -28,9 +30,22 @@ export const EditionModal = ({
     const { selfId, profile, did, setProfile } = useNoUno()
     
     const [stage, setStage] = useState('Idle')
+
+    // Profile
     const [bio, setBio] = useState(null)
-    const [twitter, setTwitter] = useState(null)
     const [name, setName] = useState(null)
+    
+    // Socials
+    const [twitter, setTwitter] = useState(null)
+    const [reddit, setReddit] = useState(null)
+    const [discord, setDiscord] = useState(null)
+    const [instagram, setInstagram] = useState(null)
+ 
+    // Addresses
+    const [bitcoin, setBitcoin] = useState(null)
+    const [ethereum, setEthereum] = useState(null)
+    const [solana, setSolana] = useState(null)
+    const [polygon, setPolygon] = useState(null)
 
     const [image, setPreviewURL] = useState(null)
     const [file, setFile] = useState()
@@ -40,7 +55,7 @@ export const EditionModal = ({
         setFile(file);
         setPreviewURL(URL.createObjectURL(file));
         return false;
-      }
+    }
 
     useEffect(() => {
         if (stage === "Updated") {
@@ -54,8 +69,25 @@ export const EditionModal = ({
         const profileIconUrl = await useCreateImage(
             file
         )
+
+        const socials = {
+            twitter: twitter != null ? twitter : profile.socials.twitter,
+            discord: discord != null ? discord : profile.socials.discord,
+            reddit: reddit != null ? reddit : profile.socials.reddit,
+            instagram: instagram != null ? instagram : profile.socials.instagram
+        }
+        
+        const blockchains = {
+            bitcoin: bitcoin != null ? bitcoin : profile.blockchainAddresses.bitcoin,
+            ethereum: discord != null ? ethereum : profile.blockchainAddresses.ethereum,
+            solana: solana != null ? solana : profile.blockchainAddresses.solana,
+            polygon: polygon != null ? polygon : profile.blockchainAddresses.polygon
+        }
+
+        console.log(socials)
         await updateProfile(
-            twitter,
+            socials,
+            blockchains,
             bio, 
             name, 
             selfId,
@@ -94,106 +126,26 @@ export const EditionModal = ({
                             height="80%"
                             width="80%"
                         >
-                            <Card
-                                    width="50%"
-                                    direction="column"
-                                >
-                                <ProfilePic src={
-                                        image != null 
-                                            ? image 
-                                            : `https://ipfs.io/ipfs/${profile.pfpurl}`
-                                    }/>
-                                
-                                <Upload 
-                                    name="avatar"
-                                    accept=".jpeg,.jpg,.png,.gif"
-                                    listType="picture-card"
-                                    className="avatar-uploader"
-                                    showUploadList={false}
-                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                    beforeUpload={beforeUpload}
-                                >
-                                    <Button
-                                        width="100px"
-                                        height="50px"
-                                        border="10px"
-                                        color="black"
-                                    >
-                                        <StyledP 
-                                            size="25px"
-                                            family= "neuropol-nova, sans-serif"
-                                        > 
-                                           Upload
-                                        </StyledP>
-                                    </Button>
-                                </Upload>
-                            </Card>
-                            <Card
-                                width="50%"
-                                direction="column"
-                            >
-                                <Card
-                                    height="20%"
-                                    justifyContent="space-evenly"
-                                >
-                                    <Card
-                                        width="50%"
-                                    >
-                                        <StyledP
-                                            size="20px"
-                                            family="neuropol-nova, sans-serif"
-                                        >   
-                                            Name:
-                                        </StyledP>
-                                    </Card>
-                                    <Input
-                                        type="text"
-                                        placeholder={profile.name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    />
-                                </Card>
-                                <Card
-                                    height="20%"
-                                    justifyContent="space-evenly"
-                                >
-                                    <Card
-                                        width="50%"
-                                    >
-                                        <StyledP
-                                            size="20px"
-                                            family="neuropol-nova, sans-serif"
-                                        >   
-                                            Twitter:
-                                        </StyledP>
-                                    </Card>
-                                    <Input
-                                        type="text"
-                                        placeholder={profile.twitter}
-                                        onChange={(e) => setTwitter(e.target.value)}
-                                    />
-                                </Card>
-                                <Card
-                                    height="20%"
-                                    justifyContent="space-evenly"
-                                >
-                                    <Card
-                                        width="50%"
-                                    >
-                                        <StyledP
-                                            size="20px"
-                                            family="neuropol-nova, sans-serif"
-                                        >   
-                                            Bio:
-                                        </StyledP>
-                                    </Card>
-                                    <Input
-                                        type="text"
-                                        placeholder={profile.bio}
-                                        onChange={(e) => setBio(e.target.value)}
-                                    />
-                                </Card>
-                            </Card>
+                            <ProfilePicEdition 
+                                profile={profile}
+                                beforeUpload={beforeUpload}
+                                image={image}
+                            />
+                            <DynamicSide
+                                setName={setName}
+                                setTwitter={setTwitter}
+                                setBio={setBio}
+                                profile={profile}
+                                setInstagram={setInstagram}
+                                setReddit={setReddit}
+                                setDiscord={setDiscord}
+                                setBitcoin={setBitcoin}
+                                setEthereum={setEthereum}
+                                setSolana={setSolana}
+                                setPolygon={setPolygon}
+                            />
                         </Card>
+
                         <Card
                             height="10%"
                         >

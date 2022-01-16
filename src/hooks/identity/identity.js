@@ -122,7 +122,8 @@ async function getRecord({
 }
 
 async function updateProfile(
-  twitter, 
+  socials, 
+  blockchains,
   bio, 
   name,
   selfId,
@@ -131,8 +132,8 @@ async function updateProfile(
   setProfile,
   profileIconUrl
 ) {
-  if (!twitter && !bio && !name &&!profileIconUrl) {
-    console.log(twitter, bio, name, profileIconUrl)
+  if (!bio && !name &&!profileIconUrl) {
+    console.log(bio, name, profileIconUrl)
     console.log('error... no profile information submitted')
     return
   }
@@ -141,27 +142,13 @@ async function updateProfile(
     await connect()
   }
 
-  const socialMedia = {
-    twitter: "cryptickoan",
-    discord: "cryptickoan#232323",
-    ens: "cryptickoan.eth",
-    reddit: "cryptickoan"
-  }
-
-  const blockchainAddresses = {
-    ethereum: "0xfb738Eb5bAAc3CA91F3cE1A145bc528b987c7cCc",
-    bitcoin: "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
-    solana: "EATS8QR9cuTP1vT5UatTTtsryu6m9qs2dXxpZBvcsKZR",
-    polygon: "0xfb738Eb5bAAc3CA91F3cE1A145bc528b987c7cCc",
-  }
-
   const user = {...profile}
-  if (twitter) user.twitter = twitter
+  if (socials) user.twitter = socials.twitter
   if (bio) user.bio = bio
   if (name) user.name = name
   if (profileIconUrl) user.pfpurl = profileIconUrl
-  if (socialMedia) user.socials = socialMedia
-  if (blockchainAddresses) user.blockchainAddresses = blockchainAddresses
+  if (socials) user.socials = socials
+  if (blockchains) user.blockchainAddresses = blockchains
   await selfId.set('basicProfile', user)
   setLocalProfileData(selfId, did, setProfile)
   console.log('profile updated...')
