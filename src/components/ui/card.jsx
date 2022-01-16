@@ -11,7 +11,7 @@ export const Card = styled.div`
     flex-direction: ${props => props.direction ?? "row"};
     align-items: ${props => props.alignItems ?? "center"};
     justify-content: ${props => props.justifyContent ?? "center"};
-
+    overflor: scroll;
     margin: ${props => props.margin ?? ""};
 
     border-radius: ${props => props.border ?? ""};

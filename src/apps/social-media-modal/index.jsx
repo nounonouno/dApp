@@ -18,11 +18,11 @@ export const SocialMediaModal = ({
     closeModal,
 }) => {
     const { selfId, profile, did, setProfile } = useNoUno()
-    
+    if (profile === {} || !profile.socials) return null
     const [activeAccount, setActiveAccount] = useState(profile.socials.twitter)
     const [activeSocialMedia, setActiveSocialMedia] = useState('twitter')
    
-    if (profile === {} || !profile.socials) return null
+ 
 
     const socials = {
         reddit: profile.socials.reddit ?? null,

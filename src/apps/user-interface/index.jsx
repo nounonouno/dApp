@@ -224,6 +224,7 @@ const RightSide = ({
     streamIsActive,
     videoEl
 }) => {
+    const [active, setActive] = useState('posts')
 
 
     return (
@@ -232,16 +233,76 @@ const RightSide = ({
             margin="0 10% 0 0"
             direction="column"
         >
-            {
-                streamId ?
-                <Stream
-                    onVideo={onVideo}
-                    streamId={streamId}
-                    streamIsActive={streamIsActive}
-                    videoEl={videoEl}
-                /> : null
-            }
+            <Selector
+                active={active}
+                setActive={setActive}
+                streamId={streamId}
+            />
+            <Card
+                height="90%"
+            >
+                {
+                    streamId && active === "stream" ?
+                        <Stream
+                            onVideo={onVideo}
+                            streamId={streamId}
+                            streamIsActive={streamIsActive}
+                            videoEl={videoEl}
+                        /> 
+                    : active === "posts" ?
+                        <PostsDisplay />
+                        : null
+                }
+            </Card>
 
+        </Card>
+    )
+}
+
+const Selector = ({
+    active,
+    setActive,
+    streamId
+}) => {
+    console.log(active)
+    return (
+        <Card
+            height="10%"
+        >
+            <Button
+                color="black"
+                active={active === 'post' ? true : false}
+                border="10px 0 0 10px"
+                onClick={() => setActive('posts')}
+            >
+                Posts
+            </Button>
+            <Button
+                color="black"
+                active={active === 'image' ? true : false}
+                onClick={() => setActive('image')}
+            >
+                Images
+            </Button>
+            <Button
+                color="black"
+                active={active === 'video' ? true : false}
+                onClick={() => setActive('video')}
+            >
+                Videos
+            </Button>
+            <Button
+                color="black"
+                active={active === 'livestream' ? true : false}
+                border="0 10px 10px 0"
+                onClick={() => setActive('livestream')}
+            >
+                <StyledP
+                    color={streamId ? "green" : "black"}
+                >
+                    Livestream
+                </StyledP>
+            </Button>
         </Card>
     )
 }
@@ -328,5 +389,61 @@ const Stream = ({
                 </Card>
           </Card>
         </>
+    )
+}
+
+const PostsDisplay = () => {
+    const { profile } = useNoUno()
+    console.log(profile, 'hey')
+    if (!profile.posts) return (
+        <StyledP>
+            Notihng to show yet!
+        </StyledP>
+    )
+
+   
+    return (
+        <Card
+            direction="column"
+        >
+            <Card
+                display="block"
+            >
+            {
+                Object.entries(profile.posts).map((post) => {
+                    return(
+                        <Card
+                            width="500px"
+                            height="500px"
+                            direction="column"
+                            justifyContent="space-evenly"
+                        >
+                            <Card
+                                height="10%"
+                                border="15px"
+                                background="#F7F7F7"
+                            >
+                                {post[1].title}
+                            </Card>
+                            <Card
+                                height="70%"
+                                justifyContent="center"
+                                alignItems="flex-start"
+                                border="15px"
+                                background="#F7F7F7"
+                            >
+                                <StyledP
+                                    size="20px"
+                                    margin="5% 0 0 0"
+                                >
+                                    {post[1].body}
+                                </StyledP>
+                            </Card>
+                        </Card>
+                    )
+                })
+            }
+            </Card>
+        </Card>
     )
 }

@@ -270,7 +270,7 @@ const Post = ({
             await connect()
         }
         let user = {...profile}
-        user.posts = user.posts ? {...user.posts, post} : {post}
+        user.posts = user.posts ? {...user.posts, ...post} : {post}
 
         await selfId.set('basicProfile', user)
     }
@@ -348,6 +348,10 @@ const Image = ({
     beforeUpload,
     image
 }) => {
+
+    const publishIt = () => {
+        
+    }
     
     return (
         <Card
