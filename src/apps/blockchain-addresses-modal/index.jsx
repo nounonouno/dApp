@@ -1,26 +1,17 @@
-import { useState, useEffect } from "react";
-
-// Identity Utils
-import { updateProfile } from "../../hooks/identity/identity";
+import { useState } from "react";
 
 // NoUno UI 
     // Context
 import { useNoUno } from "../../context/nouno";
-    // Hooks
-import { useCreateImage } from "../../hooks/nft-storage";
     // Components
 import { 
     Card,
     StyledP,
-    ProfilePic,
-    Button,
-    Input,
     ButtonImg
 } from "../../components/ui";
 
 // React Modal
 import Modal from 'react-modal';
-import { Upload } from "antd";
 
 export const BlockchainAddressesModal = ({ 
     modalIsOpen, 
@@ -117,8 +108,8 @@ const AccountIcon = ({
 
 const useGetSocialMediaIcon = (socialMedia) => {
     switch (socialMedia) {
-        case "twitter":
-            return "bafkreieyldbxgyoekm6qschhxbckawnqjvyivtcqpbzvjmqh7edmawbcee"
+        case "bitcoin":
+            return "bafkreigzdo6ktnllzvb3qo2bq5k3d4bssqacr5ahdz2h5ms3bmm6x4cl4q"
         case "discord":
             return "bafkreick2lrfbfdwqjpgptrlk5cmx5vpzlr4fl5f2oqfouj5xdv3zfw7je"
         case "reddit":
