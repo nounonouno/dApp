@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // NoUno UI 
     // Context
@@ -13,22 +13,26 @@ import {
 // React Modal
 import Modal from 'react-modal';
 
+// Copy to clipboad
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
 export const BlockchainAddressesModal = ({ 
     modalIsOpen, 
     closeModal,
 }) => {
-    const { selfId, profile, did, setProfile } = useNoUno()
+    const { profile } = useNoUno()
     
-    const [activeAccount, setActiveAccount] = useState(profile.twitter)
-    const [activeSocialMedia, setActiveSocialMedia] = useState('twitter')
-   
-    if (true) return null
+    const [activeAddress, setActiveAddress] = useState(profile.blockchainAddresses.ethereum)
+    const [activeBlockchain, setActiveBlockchain] = useState('ethereum')
+    
+    console.log(profile)
+    if (profile === {} || !profile.blockchainAddresses) return null
 
     const blockchainAddresses = {
-        reddit: profile.addresses.ethereum ?? null,
-        twitter: profile.addresses.bitcoin ?? null,
-        discord: profile.addresses.solana ?? null,
-        ens: profile.addresses.polygon ?? null
+        ethereum: profile.blockchainAddresses.ethereum ?? null,
+        bitcoin: profile.blockchainAddresses.bitcoin ?? null,
+        polygon: profile.blockchainAddresses.polygon ?? null,
+        solana: profile.blockchainAddresses.solana ?? null,
     }
 
     return (
@@ -41,20 +45,20 @@ export const BlockchainAddressesModal = ({
                 direction="column"
             >   
                 <Card
-                    height="20%"
+                    height="30%"
                     direction="column"
                 >
                     <StyledP
                         family="neuropol-nova, sans-serif"
-                        size="15px"
+                        size="25px"
                     >
-                        Find me on {activeSocialMedia}!
+                        Find me on {activeBlockchain}!
                     </StyledP>
                     <StyledP
-                        size="35px"
+                        size="45px"
                         family="neuropol-nova, sans-serif"
                     >
-                        {activeAccount}
+                        {activeAddress.slice(0,5) + '....' + activeAddress.slice(-3)}
                     </StyledP>
                 </Card>
                 <Card
@@ -66,10 +70,10 @@ export const BlockchainAddressesModal = ({
                         if (account[1].length > 1) {
                             return (
                             <AccountIcon 
-                                socialMedia={account[0]}
-                                account={account[1]}
-                                setActiveAccount={setActiveAccount}
-                                setActiveSocialMedia={setActiveSocialMedia}
+                                blockchain={account[0]}
+                                address={account[1]}
+                                setActiveAddress={setActiveAddress}
+                                setActiveBlockchain={setActiveBlockchain}
                             />)
                         }
                     })
@@ -83,26 +87,58 @@ export const BlockchainAddressesModal = ({
 }
 
 const AccountIcon = ({
-    socialMedia,
-    account,
-    setActiveAccount,
-    setActiveSocialMedia
+    blockchain,
+    address,
+    setActiveAddress,
+    setActiveBlockchain
 }) => {
-    if (socialMedia === "ens") return null
-    const src = useGetSocialMediaIcon(socialMedia)
-    console.log('hey', src, socialMedia)
+    const [copied, setCopied] = useState(false)
+    const src = useGetSocialMediaIcon(blockchain)
     
     const handleClick = () => {
-        setActiveAccount(account)
-        setActiveSocialMedia(socialMedia)
+        setActiveAddress(address)
+        setActiveBlockchain(blockchain)
     }
+
+    useEffect(() => {
+        if (copied === false) return
+        setTimeout(
+            () => setCopied(false),
+            355
+        )
+    })
+
     return (
-        <ButtonImg 
-            height="50px"
-            width="50px"
-            src={"https://ipfs.io/ipfs/" + src} 
-            onClick={handleClick}
-        />
+        <Card
+            width="100px"
+            height="100px"
+            direction="column"
+        >
+            {
+                copied ? (
+                    <StyledP
+                        size="10px"
+                        opacity="0.5"
+                        margin="0 0 9px 0"
+                    >
+                        Copied to clipboad!
+                    </StyledP> 
+                ) : null
+            }
+            <CopyToClipboard 
+                text={address}
+                onCopy={() => setCopied(true)}
+            >
+                <ButtonImg 
+                    height="80px"
+                    width="80px"
+                    emphasis="90px"
+                    opacity="0.8"
+                    src={"https://ipfs.io/ipfs/" + src} 
+                    onClick={handleClick}
+                />
+            </CopyToClipboard>
+        </Card>
     )
 }
 
@@ -110,12 +146,12 @@ const useGetSocialMediaIcon = (socialMedia) => {
     switch (socialMedia) {
         case "bitcoin":
             return "bafkreigzdo6ktnllzvb3qo2bq5k3d4bssqacr5ahdz2h5ms3bmm6x4cl4q"
-        case "discord":
-            return "bafkreick2lrfbfdwqjpgptrlk5cmx5vpzlr4fl5f2oqfouj5xdv3zfw7je"
-        case "reddit":
-            return "bafkreig7hqdtr67qboaykuman37ak7z5cwjltffbwhddwjqf64dsc7zp64"    
-        case "eth":
-            return "bafkreie2vp66x3msyxtwtm6pdxi5ymofxc6orv762dcwxfyudoolfeexhm"
+        case "ethereum":
+            return "bafkreia2s33letv3zfhgufk5du2e2g73ghxuvhcanpdurc72nwrhtyj6ay"
+        case "solana":
+            return "bafkreidh2kxvz7vfsei6y75uwmzoiqxfd2e5ben7fmckf66l7miserwhyq"    
+        case "polygon":
+            return "bafkreigihxzcl4vnfa7epu4sxe7codwpuvsnjduwt2he7pvb5xk2zwsnyi"
         default:
             break;
     }

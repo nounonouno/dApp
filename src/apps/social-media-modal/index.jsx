@@ -31,7 +31,6 @@ export const SocialMediaModal = ({
         ens: profile.socials.ens ?? null
     }
 
-   Object.entries(socials).map(acc => console.log(acc))
     return (
         <Modal
             isOpen={modalIsOpen}
@@ -91,7 +90,6 @@ const AccountIcon = ({
 }) => {
     if (socialMedia === "ens") return null
     const src = useGetSocialMediaIcon(socialMedia)
-    console.log('hey', src, socialMedia)
     
     const handleClick = () => {
         setActiveAccount(account)
@@ -101,6 +99,8 @@ const AccountIcon = ({
         <ButtonImg 
             height="50px"
             width="50px"
+            emphasis="60px"
+            opacity="0.6"
             src={"https://ipfs.io/ipfs/" + src} 
             onClick={handleClick}
         />
